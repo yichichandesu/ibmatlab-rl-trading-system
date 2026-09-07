@@ -4,6 +4,28 @@ MATLAB research project for an automated trading workflow using IBMatlab data ho
 
 This repository is organized from a coursework project. It is intended for education and research only. It is not investment advice and should not be used for live trading without independent review, risk controls, and paper-trading validation.
 
+## Project Highlights
+
+- Built a custom MATLAB Reinforcement Learning Toolbox environment for execution decisions.
+- Trained a DQN-style agent using market state, technical signal state, position state, and transaction-cost-aware rewards.
+- Combined technical indicators such as moving average crossover, RSI, MACD, Bollinger Bands, stochastic oscillator, and volume spikes.
+- Separated safe simulated-data demos from broker-connected IBMatlab/TWS execution wrappers.
+- Cleaned the public repository to exclude account logs, trained model binaries, third-party binaries, and local artifacts.
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A[Simulated or IBMatlab OHLCV data] --> B[Technical signal generation]
+    B --> C[Signal scoring and combination]
+    C --> D[Custom MATLAB RL environment]
+    D --> E[DQN execution agent]
+    E --> F[Evaluation and simulation]
+    E --> G[Paper-order execution wrapper]
+```
+
+More detail: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+
 ## What It Does
 
 - Fetches intraday OHLCV bars through IBMatlab.
@@ -31,7 +53,9 @@ extras/
   auto_trading_system_2/      Optional files from an alternate local version
 docs/
   FILE_SELECTION.md           What was included and excluded
+  ARCHITECTURE.md             Data, signal, RL, and execution flow
   RL_MODULE_REVIEW.md         RL completeness review and remaining gaps
+  PORTFOLIO_SNIPPET.md        Short profile/resume-ready project summary
 ```
 
 ## Requirements
@@ -58,6 +82,15 @@ For the full IBMatlab/TWS workflow, review the execution wrappers first and then
 run `src/enhanced_IB_system.m` from a paper-trading setup. For development or
 review, start with simulated data before connecting to TWS.
 
+## Key Files
+
+- `examples/demo_train_rl_with_sim_data.m`: safe demo entry point using simulated data.
+- `src/systemtester/tradingEnvExecution.m`: custom RL environment.
+- `src/systemtester/createExecutionAgent.m`: DQN agent definition.
+- `src/systemtester/rewardFunction.m`: reward design for execution behavior.
+- `src/execution/executeRLStrategy.m`: live strategy bridge from agent action to order wrapper.
+- `docs/RL_MODULE_REVIEW.md`: review of RL completeness and remaining cleanup work.
+
 ## Safety Notes
 
 - Use paper trading first.
@@ -68,3 +101,7 @@ review, start with simulated data before connecting to TWS.
 ## Portfolio Summary
 
 Built an IBMatlab-based automated trading system with signal ranking, technical indicator aggregation, and a DQN reinforcement-learning execution module using market state, signal state, position state, and transaction-cost-aware rewards.
+
+## Repository Status
+
+This repository is cleaned for public review. The original local project included duplicate downloads, MATLAB output artifacts, trained `.mat` agents, IB trade logs, and third-party IBMatlab binaries; those are intentionally excluded from Git.
