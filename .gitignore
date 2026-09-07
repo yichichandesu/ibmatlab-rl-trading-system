@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+__MACOSX/
+
+# MATLAB autosaves and temporary files
+*.asv
+*.m~
+*.mlx.autosave
+
+# Private trading/account artifacts
+IB_tradeslog_*.csv
+IB_tradeslog_*.mat
+trainedAgent_*.mat
+*.mat
+
+# Large/local data
+data/raw/
+data/private/
+*.csv.gz
+
+# Third-party dependencies
+IBMatlab.jar
+IBMatlab.p
+
+# Generated output
+output/
+reports/
+html/
+figures/generated/
+
